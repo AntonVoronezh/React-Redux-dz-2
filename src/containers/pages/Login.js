@@ -7,12 +7,12 @@ import {
 	passwordBackspaceAC,
 } from '../../store/actions/loginFormActions';
 
-import { tryLoginAC } from '../../store/actions/loginActions';
+import { auth } from '../../store/actions/authAction';
 
-const mapStateToProps = state => {
+const mapStateToProps = ({ loginForm, auth }) => {
 	return {
-		...state.loginForm,
-		...state.login,
+		...loginForm,
+		...auth,
 	};
 };
 
@@ -22,7 +22,7 @@ const mapDispatchToProps = dispatch => {
 		passwordTextCB: text => dispatch(passwordTextAC(text)),
 		usernameBackspaceCB: () => dispatch(usernameBackspaceAC()),
 		passwordBackspaceCB: () => dispatch(passwordBackspaceAC()),
-		tryLoginCB: user => dispatch(tryLoginAC(user)),
+		authCB: user => dispatch(auth(user)),
 	};
 };
 
