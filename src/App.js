@@ -10,16 +10,19 @@ import Profile from './components/pages/Profile';
 import Login from './containers/pages/Login';
 import Logout from './containers/pages/Logout';
 import Notfound from './components/pages/Notfound';
+import { getInStorage } from './helpers/localStorage/localStorage';
 
-const App = ({ isLogged, history }) => {
+const isLogged = getInStorage('isLogged') || false;
+
+const App = ({ isAuth, history }) => {
 	return (
 		<div className="App">
-			<TopMenu user={isLogged} />
+			<TopMenu user={isAuth} />
 
 			<Switch>
 				<Route exact path="/" component={Main} />
 				<Route path="/news" component={News} />
-				<PrivateRoute path="/profile" component={Profile} user={isLogged} />
+				<PrivateRoute path="/profile" component={Profile} user={isAuth} />
 				<Route path="/login" render={() => <Login redirect={() => history.push('/profile')} />} />
 				<Route path="/logout" render={() => <Logout redirect={() => history.push('/')} />} />
 				<Route component={Notfound} />
@@ -28,9 +31,9 @@ const App = ({ isLogged, history }) => {
 	);
 };
 
-const mapStateToProps = ({ login }) => {
+const mapStateToProps = ({ auth }) => {
 	return {
-		isLogged: login.isLogged,
+		isAuth: auth.isAuth,
 	};
 };
 
