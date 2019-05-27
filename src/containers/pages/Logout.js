@@ -1,11 +1,10 @@
 import { connect } from 'react-redux';
 import Logout from '../../components/pages/Logout';
-import { logoutAC } from '../../store/actions/loginActions';
+import { logout } from '../../store/actions/authAction';
 
 const mapDispatchToProps = dispatch => {
 	return {
-		logoutCB: () => dispatch(logoutAC()),
-		// isLoggedCB: props => props.history.push('/profile')
+		logoutCB: () => dispatch(logout()),
 	};
 };
 
@@ -13,7 +12,3 @@ export default connect(
 	null,
 	mapDispatchToProps
 )(Logout);
-
-// login = user => {
-// 	this.setState({ user }, () => this.props.history.push('/profile'));
-// };
