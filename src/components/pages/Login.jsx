@@ -12,14 +12,14 @@ const Login = ({
 	passwordTextCB,
 	usernameBackspaceCB,
 	passwordBackspaceCB,
-	tryLoginCB,
-	isLogged,
-	error
+	authCB,
+	isAuth,
+	error,
 }) => {
-	isLogged ? redirect() : null;
+	isAuth ? redirect() : null;
 
 	const submitFormHandler = () => {
-		tryLoginCB({ login: usernameText, password: passwordText });
+		authCB({ email: usernameText, password: passwordText });
 	};
 
 	const usernameInputHandler = ({ nativeEvent: { data } }) => {
@@ -44,13 +44,15 @@ const Login = ({
 
 	return (
 		<Segment>
-			{error && !isLogged ? <div className={classes.error}>Имя пользователя или пароль введены не верно </div> : null}
+			{error && !isAuth ? (
+				<div className={classes.error}>Имя пользователя или пароль введены не верно </div>
+			) : null}
 
 			<Form onSubmit={submitFormHandler}>
 				<Form.Group widths="equal">
 					<Form.Input
 						fluid
-						label="Username"
+						label="Username(max@test.com)"
 						placeholder="username"
 						onChange={usernameInputHandler}
 						onKeyUp={usernameKeyUpHandler}
@@ -58,7 +60,7 @@ const Login = ({
 					/>
 					<Form.Input
 						fluid
-						label="Password"
+						label="Password(12345)"
 						placeholder="password"
 						onChange={passwordInputHandler}
 						onKeyUp={passwordKeyUpHandler}
@@ -82,7 +84,7 @@ Login.propTypes = {
 	passwordTextCB: PropTypes.func.isRequired,
 	usernameBackspaceCB: PropTypes.func.isRequired,
 	passwordBackspaceCB: PropTypes.func.isRequired,
-	tryLoginCB: PropTypes.func.isRequired,
+	authCB: PropTypes.func.isRequired,
 	redirect: PropTypes.func.isRequired,
-	isLogged: PropTypes.bool.isRequired,
+	isAuth: PropTypes.bool.isRequired,
 };
